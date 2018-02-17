@@ -33,7 +33,7 @@ go run main.go
 
 or include this lib to your code, example.go:
 ```
-import "github.com/Festum/plan-generator/repayment"
+import "github.com/Festum/plan-generator/src/repayment"
 
 // duration: number of instalments in months
 // rate: nominal interest rate
