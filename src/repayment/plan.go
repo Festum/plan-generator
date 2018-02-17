@@ -5,6 +5,7 @@ import (
 	"log"
 	"math"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -88,6 +89,15 @@ func f2str(fv float64) string {
 	return strconv.FormatFloat(fv, 'f', 2, 64)
 }
 
+func rtz(fv string) string { // Remove Tailing zero
+	if strings.Contains(fv, ".") {
+		if fv[len(fv)-1:] == "0" || fv[len(fv)-1:] == "." {
+			return rtz(fv[:len(fv)-1])
+		}
+	}
+	return fv
+}
+
 func PVPlan(duration float64, rate float64, iop float64, start string) []Plan {
 	pv := getAnnuity(duration, rate, iop)
 	// Interest = (Nominal-Rate * Days in Month * Initial Outstanding Principal) / days in year
@@ -107,7 +117,7 @@ func PVPlan(duration float64, rate float64, iop float64, start string) []Plan {
 			principle = pv - i
 			rop = 0
 		}
-		out = append(out, Plan{f2str(pv), date, f2str(iop), f2str(i), f2str(principle), f2str(rop)})
+		out = append(out, Plan{f2str(pv), date, rtz(f2str(iop)), f2str(i), f2str(principle), rtz(f2str(rop))})
 	}
 
 	return out

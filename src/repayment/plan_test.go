@@ -19,6 +19,10 @@ func TestNumbers(t *testing.T) {
 	assertEqual(t, Round(33.6677, .5, 2), 33.67, "Round result is wrong")
 	assertEqual(t, Round(33.6677, 1, 2), 33.66, "Round result is not Floor")
 	assertEqual(t, f2str(33.67), "33.67", "Failed to convert float64 to string")
+	assertEqual(t, rtz("33.00"), "33", "Failed to remove tailing zero")
+	assertEqual(t, rtz("33.10"), "33.1", "Failed to remove tailing zero")
+	assertEqual(t, rtz("33.10000"), "33.1", "Failed to remove tailing zero")
+	assertEqual(t, rtz("0.00"), "0", "Failed to remove tailing zero")
 	assertEqual(t, getAnnuity(24, 5, 5000), 219.36, "Calculation for annuity is not correct")
 }
 
@@ -37,7 +41,7 @@ func TestGenerateDates(t *testing.T) {
 
 func TestPlan(t *testing.T) {
 	plans := PVPlan(24, 5, 5000, "01.01.2018")
-	assertEqual(t, plans[0], Plan{"219.36", "2018-01-01T00:00:00Z", "5000.00", "20.83", "198.53", "4801.47"}, "")
+	assertEqual(t, plans[0], Plan{"219.36", "2018-01-01T00:00:00Z", "5000", "20.83", "198.53", "4801.47"}, "")
 	assertEqual(t, plans[1], Plan{"219.36", "2018-02-01T00:00:00Z", "4801.47", "20.00", "199.36", "4602.11"}, "")
-	assertEqual(t, plans[len(plans)-1], Plan{"219.15", "2019-12-01T00:00:00Z", "218.25", "0.90", "218.25", "0.00"}, "")
+	assertEqual(t, plans[len(plans)-1], Plan{"219.15", "2019-12-01T00:00:00Z", "218.25", "0.90", "218.25", "0"}, "")
 }
