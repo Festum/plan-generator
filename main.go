@@ -10,7 +10,7 @@ import (
 )
 
 func index(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Accessing index")
+	log.Println("Accessing index")
 	readme, err := ioutil.ReadFile("README.md")
 	if err != nil {
 		log.Fatal(err)
@@ -19,7 +19,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 }
 
 func generatePlan(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Invoking API: generate-plan")
+	log.Println("Invoking API: generate-plan")
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		log.Fatal(err)
